@@ -36,7 +36,7 @@ userRouter.post("/signup", async function (req, res) {
     });
 
     return res.status(201).json({
-      message: "User created successfully",
+      userId: newUser._id,
     });
   } catch (e) {
     console.error(e);
@@ -73,7 +73,7 @@ userRouter.post("/signin", async function (req, res) {
   }
 });
 
-userRouter.post("/update", authMiddleware, async function (req, res) {
+userRouter.put("/update", authMiddleware, async function (req, res) {
   const userDetails = req.body;
   const parsedUser = UpdateUserSchema.safeParse(userDetails);
 
@@ -99,4 +99,38 @@ userRouter.post("/update", authMiddleware, async function (req, res) {
   } catch (e) {
     return res.status(500).json({ message: "Some internal error occured" });
   }
+});
+
+userRouter.get("/bulk", async function (req, res) {
+  const filter = req.query.filter || "";
+
+  const users = await User.find({
+    $or: [
+      {
+        firstName: {
+          $regex: filter,
+          $options: "i",
+        },
+      },
+      {
+        lastName: {
+          $regex: filter,
+          $options: "i",
+        },
+      },
+    ],
+  });
+
+  console.log(users);
+
+  return res.json({
+    user: users.map(function (user) {
+      return {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        _id: user._id,
+      };
+    }),
+  });
 });
