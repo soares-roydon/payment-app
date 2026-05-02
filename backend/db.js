@@ -1,15 +1,15 @@
-import mongoose from "mongoose"
-import dotenv from "dotenv"
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
-await mongoose.connect(process.env.MONGO_URI)
+await mongoose.connect(process.env.MONGO_URI);
 
 const userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    email: String,
-    password: String
-})
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+});
 
-export const User = mongoose.model("User", userSchema)
+export const User = mongoose.model("User", userSchema);
