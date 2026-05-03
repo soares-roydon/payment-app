@@ -50,7 +50,12 @@ userRouter.post("/signin", async function (req, res) {
   const parsedCredentials = LoginSchema.safeParse(credentials);
 
   if (!parsedCredentials.success) {
-    return res.status(400).json({ message: "Invalid input" });
+    return res
+      .status(400)
+      .json({
+        message: "Invalid input",
+        errror: parsedCredentials.error.issues[0],
+      });
   }
 
   const { email, password } = parsedCredentials.data;
@@ -81,18 +86,8 @@ userRouter.put("/update", authMiddleware, async function (req, res) {
     return res.status(400).json({ message: "Invalid inputs" });
   }
 
-  const { firstName, lastName, password } = parsedUser.data;
-
   try {
-    await User.updateOne(
-      { email: req.email },
-      {
-        firstName,
-        lastName,
-        password,
-      },
-    );
-
+    await User.updateOne({ email: req.email }, parsedUser.data);
     return res
       .status(201)
       .json({ message: "Information updated succeessfully" });

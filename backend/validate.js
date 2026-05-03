@@ -20,7 +20,7 @@ export const LoginSchema = z.object({
 });
 
 export const UpdateUserSchema = z.object({
-  firstName: z.string().min(1).max(16),
-  lastName: z.string().min(1).max(16),
-  password: z.string().min(6).max(16),
+  firstName: z.string().min(1).max(16).optional(),
+  lastName: z.string().min(1).max(16).optional(),
+  password: z.string().min(6).max(16).optional(),
 });
