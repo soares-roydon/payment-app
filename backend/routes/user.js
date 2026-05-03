@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { LoginSchema, UpdateUserSchema, UserSchema } from "../validate.js";
-import { User } from "../db.js";
+import { Account, User } from "../db.js";
 import { createToken } from "../utils/createToken.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 
@@ -34,6 +34,12 @@ userRouter.post("/signup", async function (req, res) {
       email,
       password,
     });
+
+    // Create a new account
+    await Account.create({
+      userId: newUser._id,
+      balance: 1 + Math.random() * 1000
+    })
 
     return res.status(201).json({
       userId: newUser._id,
@@ -69,7 +75,7 @@ userRouter.post("/signin", async function (req, res) {
         .json({ message: "User does not exist, please try sign up" });
     }
 
-    const token = createToken(email);
+    const token = createToken(userExist._id);
 
     return res.status(200).json({ message: "Signed in successfully", token });
   } catch (e) {

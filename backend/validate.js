@@ -24,3 +24,8 @@ export const UpdateUserSchema = z.object({
   lastName: z.string().min(1).max(16).optional(),
   password: z.string().min(6).max(16).optional(),
 });
+
+export const TransferSchema = z.object({
+  to: z.string().min(1, "Recipient is required"),
+  amount: z.number().positive("Amount must be greater than 0"),
+});
