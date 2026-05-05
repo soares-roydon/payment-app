@@ -2,12 +2,12 @@ import express from "express";
 import { Account } from "../db.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import mongoose from "mongoose";
-import { TransferSchema } from "../validate";
+import { TransferSchema } from "../validate.js";
 
 export const accountRouter = express.Router();
 
 accountRouter.get("/balance", authMiddleware, async function (req, res) {
-  const account = await Account.findOne({ userId: req.id });
+  const account = await Account.findOne({ userId: req.userId });
 
   if (!account._id) {
     return res
@@ -39,7 +39,9 @@ accountRouter.post("/transfer", authMiddleware, async function (req, res) {
   try {
     session.startTransaction();
 
-    const account = await Account.findOne({ userId: req.userId }).session(session);
+    const account = await Account.findOne({ userId: req.userId }).session(
+      session,
+    );
 
     if (!account || account.balance < amount) {
       await session.abortTransaction();
@@ -55,12 +57,12 @@ accountRouter.post("/transfer", authMiddleware, async function (req, res) {
 
     await Account.updateOne(
       { userId: req.userId },
-      { $inc: { balance: -amount } }
+      { $inc: { balance: -amount } },
     ).session(session);
 
     await Account.updateOne(
       { userId: to },
-      { $inc: { balance: amount } }
+      { $inc: { balance: amount } },
     ).session(session);
 
     await session.commitTransaction();

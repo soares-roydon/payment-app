@@ -38,7 +38,7 @@ userRouter.post("/signup", async function (req, res) {
     // Create a new account
     await Account.create({
       userId: newUser._id,
-      balance: 1 + Math.random() * 1000
+      balance: Math.round(Math.random() * 1000)
     })
 
     return res.status(201).json({
@@ -121,8 +121,6 @@ userRouter.get("/bulk", async function (req, res) {
       },
     ],
   });
-
-  console.log(users);
 
   return res.json({
     user: users.map(function (user) {

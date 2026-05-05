@@ -1,8 +1,22 @@
+import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
 
 export function BalanceCard() {
-  let amount = 1000;
+  const [amount, setAmount] =useState(999)
   let accountNo = "000123456789"
+
+  useEffect(function () {
+    fetch("http://localhost:3000/api/v1/account/balance", {
+      method: "GET",
+      headers: {
+        "authorization": localStorage.getItem("token")
+      },
+    }).then(async function (response) {
+        const result = await response.json()
+        setAmount(result.balance)
+    })
+  }, [])
+
   return (
     <>
       <div>
