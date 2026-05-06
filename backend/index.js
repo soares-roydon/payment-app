@@ -9,4 +9,7 @@ app.use(express.json());
 
 app.use("/api/v1", router);
 
-app.listen(3000);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function () {
+  console.log(`Server running on port ${PORT}`);
+});
