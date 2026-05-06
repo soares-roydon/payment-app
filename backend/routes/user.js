@@ -38,8 +38,8 @@ userRouter.post("/signup", async function (req, res) {
     // Create a new account
     await Account.create({
       userId: newUser._id,
-      balance: Math.round(Math.random() * 1000)
-    })
+      balance: Math.round(Math.random() * 1000),
+    });
 
     return res.status(201).json({
       userId: newUser._id,
@@ -56,12 +56,10 @@ userRouter.post("/signin", async function (req, res) {
   const parsedCredentials = LoginSchema.safeParse(credentials);
 
   if (!parsedCredentials.success) {
-    return res
-      .status(400)
-      .json({
-        message: "Invalid input",
-        errror: parsedCredentials.error.issues[0],
-      });
+    return res.status(400).json({
+      message: "Invalid input",
+      errror: parsedCredentials.error.issues[0],
+    });
   }
 
   const { email, password } = parsedCredentials.data;
@@ -102,10 +100,12 @@ userRouter.put("/update", authMiddleware, async function (req, res) {
   }
 });
 
-userRouter.get("/bulk", async function (req, res) {
+userRouter.get("/bulk", authMiddleware, async function (req, res) {
   const filter = req.query.filter || "";
+  const currentUserId = req.userId;
 
   const users = await User.find({
+    _id: { $ne: currentUserId },
     $or: [
       {
         firstName: {

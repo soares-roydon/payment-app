@@ -1,4 +1,4 @@
-export function Search({onChange}) {
+export function Search({onChange, value}) {
   return (
     <>
       <div className="flex justify-between items-center pr-5 border rounded border-gray-400 focus-within:border-green-500 ">
@@ -7,6 +7,7 @@ export function Search({onChange}) {
           placeholder="Search users..."
           className="w-full px-3 py-2 placeholder:text-sm outline-none"
           onChange={onChange}
+          value={value}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
