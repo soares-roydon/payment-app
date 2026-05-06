@@ -37,11 +37,11 @@ export function Login() {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center pt-30">
         <div className="w-100">
           <Card>
-            <div className="p-10">
-              <div className="text-center py-6 text-2xl font-semibold">
+            <div className="p-6">
+              <div className="text-center mb-6 text-2xl font-semibold">
                 Welcome
               </div>
               <Input
@@ -58,7 +58,9 @@ export function Login() {
                   setPassword(e.target.value);
                 }}
               />
+              <div className="mt-2">
               <Button text={"Login"} onClick={login} />
+              </div>
               <div className="flex gap-2 justify-center text-sm mt-5">
                 <div className="">Create a new account?</div>
                 <div

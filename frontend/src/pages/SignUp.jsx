@@ -24,17 +24,15 @@ export function SignUp() {
         email,
         password,
       }),
-    })
-      .then(async function (response) {
-        const result = await response.json()
-        if(!response.ok) {
-          alert(result.message)
-        }
-        else {
-          alert("Signed up successfully")
-          navigate("/login")
-        }
-      })
+    }).then(async function (response) {
+      const result = await response.json();
+      if (!response.ok) {
+        alert(result.message);
+      } else {
+        alert("Signed up successfully");
+        navigate("/login");
+      }
+    });
   }
 
   function onClickHandler() {
@@ -43,10 +41,10 @@ export function SignUp() {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center pt-20">
         <div className="w-100">
           <Card>
-            <div className="p-5">
+            <div className="p-6">
               <div className="text-center py-6 text-2xl font-semibold">
                 Welcome
               </div>
@@ -78,11 +76,9 @@ export function SignUp() {
                   setPassword(e.target.value);
                 }}
               />
-              <Button
-                text={"Sign up"}
-                accent={"primary"}
-                onClick={signup}
-              />
+              <div className="mt-2">
+                <Button text={"Sign up"} accent={"primary"} onClick={signup} />
+              </div>
               <div className="flex gap-2 justify-center text-sm mt-5">
                 <div className="">Already have an account?</div>
                 <div
