@@ -10,6 +10,7 @@ export function Dashboard() {
   const [filter, setFilter] = useState("");
   const [users, setUsers] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [balance, setBalance] = useState(999);
 
   const navigate = useNavigate();
 
@@ -22,16 +23,17 @@ export function Dashboard() {
   }, []);
 
   function search(value) {
-    fetch(`https://payment-app-6j79.onrender.com/api/v1/user/bulk?filter=${value}`, {
-      headers: {
-        authorization: localStorage.getItem("token")
-      }
-    }).then(
-      async function (response) {
-        const result = await response.json();
-        setUsers(result.user);
+    fetch(
+      `https://payment-app-6j79.onrender.com/api/v1/user/bulk?filter=${value}`,
+      {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
       },
-    );
+    ).then(async function (response) {
+      const result = await response.json();
+      setUsers(result.user);
+    });
   }
 
   return (
@@ -46,7 +48,7 @@ export function Dashboard() {
         Log out
       </button>
       <div className="grid grid-cols-1 mx-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        <BalanceCard />
+        <BalanceCard balance={balance} setBalance={setBalance}/>
       </div>
       <div className="mx-4 my-6 lg:grid grid-cols-2">
         <div className="flex flex-col">
@@ -69,7 +71,7 @@ export function Dashboard() {
         </div>
       </div>
       <div className="grid grid-cols-1 mb-5 md:grid-cols-2 lg:grid-cols-2">
-        <Table friends={friends} />
+        <Table friends={friends} setBalance={setBalance}/>
       </div>
     </>
   );
