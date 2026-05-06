@@ -38,15 +38,6 @@ export function Dashboard() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          localStorage.removeItem("token");
-          navigate("/login");
-        }}
-        className="bg-red-400 px-2 py-1 rounded text-white text-sm hover:bg-red-500"
-      >
-        Log out
-      </button>
       <div className="grid grid-cols-1 mx-4 mt-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         <BalanceCard balance={balance} setBalance={setBalance}/>
       </div>
@@ -70,7 +61,7 @@ export function Dashboard() {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-1 mb-5 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid grid-cols-1">
         <Table friends={friends} setBalance={setBalance}/>
       </div>
     </>
