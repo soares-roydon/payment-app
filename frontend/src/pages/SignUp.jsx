@@ -13,7 +13,7 @@ export function SignUp() {
   const navigate = useNavigate();
 
   function signup() {
-    fetch("http://localhost:3000/api/v1/user/signup", {
+    fetch("https://payment-app-6j79.onrender.com/api/v1/user/signup", {
       method: "POST",
       headers: {
         "content-type": "application/json",

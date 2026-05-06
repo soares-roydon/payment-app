@@ -22,7 +22,7 @@ export function Dashboard() {
   }, []);
 
   function search(value) {
-    fetch(`http://localhost:3000/api/v1/user/bulk?filter=${value}`, {
+    fetch(`https://payment-app-6j79.onrender.com/api/v1/user/bulk?filter=${value}`, {
       headers: {
         authorization: localStorage.getItem("token")
       }

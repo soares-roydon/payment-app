@@ -6,7 +6,7 @@ export function BalanceCard() {
   let accountNo = "000123456789"
 
   useEffect(function () {
-    fetch("http://localhost:3000/api/v1/account/balance", {
+    fetch("https://payment-app-6j79.onrender.com/api/v1/account/balance", {
       method: "GET",
       headers: {
         "authorization": localStorage.getItem("token")

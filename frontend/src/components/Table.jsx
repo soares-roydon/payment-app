@@ -5,7 +5,7 @@ export function Table({friends}) {
   const [amount, setAmount] = useState(0)
 
   function transfer(to) {
-    fetch("http://localhost:3000/api/v1/account/transfer", {
+    fetch("https://payment-app-6j79.onrender.com/api/v1/account/transfer", {
       method: "POST",
       headers: {
         "content-type": "application/json",
